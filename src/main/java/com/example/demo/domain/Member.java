@@ -21,8 +21,8 @@ public class Member {
 	
 	private String userName;
 	
-	private Address address;
+	//private Address address;
 	
-	List<Order> orders = new ArrayList<Order>();
+	//List<Order> orders = new ArrayList<Order>();
 
 }
