@@ -1,5 +1,8 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,5 +22,7 @@ public class Member {
 	private String userName;
 	
 	private Address address;
+	
+	List<Order> orders = new ArrayList<Order>();
 
 }
