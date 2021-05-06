@@ -23,6 +23,6 @@ public class Member {
 	
 	//private Address address;
 	
-	//List<Order> orders = new ArrayList<Order>();
+	List<Order> orders = new ArrayList<Order>();
 
 }

@@ -26,7 +26,7 @@ public class MemberService {
 		return member.getId();
 	}
 	
-
+	// 회원 중복 검증 로직
 	private void vaildateDuplicateMember(Member member) {
 		List<Member> findMember = memberRepository.findByName(member.getUserName());
 		if(!findMember.isEmpty()) {
