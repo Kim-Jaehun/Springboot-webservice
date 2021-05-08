@@ -13,4 +13,6 @@ import lombok.Setter;
 public class Delivery {
 
 	private Order order;
+	
+	private String status;
 }
