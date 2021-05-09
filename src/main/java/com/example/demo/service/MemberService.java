@@ -41,7 +41,7 @@ public class MemberService {
 	
 	// 회원 전체 조회
 	private Member findOne(long memberId){
-		return memberRepository.find(memberId);
+		return memberRepository.findOne(memberId);
 	}
 	
 }

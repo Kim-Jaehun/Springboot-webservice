@@ -11,13 +11,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ManyToAny;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "orderItem")
 @Setter
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 	
 	@Id
@@ -35,6 +38,8 @@ public class OrderItem {
 	
 	private int orderPrice;  //주문가격
 	private int count; 		 //주문 수량
+	
+//	protected OrderItem() {}
 	
 	//==생성 메서드 ==//
 	public static OrderItem createOrderItem(Item item, int orderprice, int count) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,34 +18,37 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "order")
-@Setter
-@Getter
+@Table(name = "orders")
+@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
-	@Id
-	@GeneratedValue
-	private long id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id")
-	private Member member;
-	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-	private List<OrderItem> orderItems = new ArrayList<>();
-	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "delivery_id")
-	private Delivery delivery;
-	
-	private LocalDateTime orderDate;
-	
-	@Enumerated(EnumType.STRING)
-	private OrderStatus status; 	//주문상태[ORDER, CANCEL]
+    @Id
+    @GeneratedValue
+    @Column(name = "order_id")
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)   // cascade는 유의해서 사용해야한다.
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "delivery_id") // 주로 Order에서 Delivery를 조회하기 때문에, 연관관계의 주인(FK와 가까운 쪽)을 Order로 둔다.
+    private Delivery delivery;
+    
+    private LocalDateTime orderDate; // 주문시간
+
+    @Enumerated(EnumType.STRING) // 타입은 반드시 String으로!
+    private OrderStatus status; // 주문 상태 [ORDER, CANCLE)
 	
 	//= 연관관계 메서드 =//
 	public void setMember(Member member) {
@@ -93,6 +97,7 @@ public class Order {
 	// 전체 주문 가격 조회
 	public int  getTotalPrice() {
 		int totalPrice = 0;
+		
 		for (OrderItem orderItem : orderItems) {
 			totalPrice += orderItem.getOrderTotalPrice();
 		}

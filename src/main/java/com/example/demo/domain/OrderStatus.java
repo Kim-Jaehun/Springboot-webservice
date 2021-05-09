@@ -1,9 +1,9 @@
 package com.example.demo.domain;
 
-public class OrderStatus {
+import javax.persistence.Embeddable;
 
-	public static final OrderStatus ORDER = null;
-	
-	public static final OrderStatus CANCEL = null;
-
+@Embeddable
+public enum OrderStatus {
+	ORDER
+	,CANCEL;
 }

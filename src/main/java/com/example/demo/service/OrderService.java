@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.domain.Delivery;
 import com.example.demo.domain.Item;
 import com.example.demo.domain.Member;
+import com.example.demo.domain.Order;
+import com.example.demo.domain.OrderItem;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.OrderRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,8 +21,10 @@ public class OrderService {
 	MemberRepository memberRepository;
 	@Autowired
 	ItemRepository itemRepository;
+	@Autowired
+	OrderRepository orderRepository;
 	
-	
+	//林巩 
 	@Transactional
 	public Long order(Long memberId, Long itemId, int count) {
 		
@@ -27,12 +33,32 @@ public class OrderService {
 		Item item = itemRepository.findOne(itemId);
 		
 		//硅价沥焊 积己
-		
+		Delivery delivery = new Delivery();
+		delivery.setAddress(member.getAddress());
 		
 		//林巩惑前 积己
-		//林巩 积己
-		//林巩 历厘
+		OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
 		
-		return null;
+		//林巩 积己
+		Order order = Order.createOrder(member, delivery, orderItem);
+		
+		//林巩 历厘
+		orderRepository.save(order);
+		
+		return order.getId();
 	}
+	
+	//林巩秒家
+	@Transactional
+	public void cancelOrder(Long orderId) {
+		
+		//林巩 浚萍萍 炼雀
+		Order order = orderRepository.findOne(orderId);
+		
+		//林巩 秒家
+		order.cancel();
+	}
+	
+	//林巩 八祸
+	
 }
