@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.domain.Item;
 import com.example.demo.domain.Order;
+import com.example.demo.domain.OrderSearch;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,8 +31,14 @@ public class OrderRepository {
 	
 	
 	//아이템 다건 조회
-	public List<Order> findAll(){
-		return em.createQuery("select i from Order i", Order.class)
+	public List<Order> findAll(OrderSearch orderSearch){
+		
+		return em.createQuery("select o from Order o join o.member m"
+				+ " where o.status = :status "
+				+ " and m.name like :name", Order.class)
+				.setParameter("status", orderSearch.getOrderStatus())
+				.setParameter("name", orderSearch.getMemberName())
+				.setMaxResults(1000) //최대 1000건ㄴ
 				.getResultList();
 	}
 	
