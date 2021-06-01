@@ -19,11 +19,12 @@ public class ItemRepository {
 	
 	//아이템 저장
 	public void save(Item item) {
-		if(item.getId() == null) {
-			em.persist(item);
-		}else {
-			em.merge(item);
-		}
+//		if(item.getId() == null) {
+//			em.persist(item);
+//		}else {
+//			em.merge(item);
+//		}
+		em.persist(item);
 	}
 	
 	//아이템 단건 조회

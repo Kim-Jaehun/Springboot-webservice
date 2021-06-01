@@ -28,19 +28,19 @@ public class MemberService {
 	
 	// 회원 중복 검증 로직
 	private void vaildateDuplicateMember(Member member) {
-		List<Member> findMember = memberRepository.findByName(member.getUserName());
+		List<Member> findMember = memberRepository.findByName(member.getName());
 		if(!findMember.isEmpty()) {
 			throw new IllegalStateException("이미 존재하는 회원입니다.");
-		}
+		} 
 	}
 
 	// 회원 전체 조회
-	private List<Member> findMembers(){
-		return memberRepository.findAll();
+	public List<Member> findMembers(){
+		return memberRepository.findAll(); 
 	}
 	
 	// 회원 전체 조회
-	private Member findOne(long memberId){
+	public Member findOne(long memberId){
 		return memberRepository.findOne(memberId);
 	}
 	

@@ -21,7 +21,7 @@ public class Member {
 	@GeneratedValue
 	private Long id;
 	
-	private String userName;
+	private String name;
 	
 	private Address address;
 	
